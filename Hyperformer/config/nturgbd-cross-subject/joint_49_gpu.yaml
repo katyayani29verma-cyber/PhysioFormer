@@ -1,0 +1,82 @@
+work_dir: ./work_dir/ntu49/xsub/hyperformer_joint
+model_saved_name: ./work_dir/ntu49/xsub/hyperformer_joint/runs
+
+seed: 2
+log_interval: 100
+save_interval: 5
+save_epoch: 0
+eval_interval: 1
+print_log: True
+show_topk: [1, 5]
+
+num_worker: 2
+
+# Feeder
+feeder: feeders.feeder_ntu49.Feeder
+
+train_feeder_args:
+  data_path: data/ntu49/ntu49_xsub.npz
+  split: train
+  debug: False
+  random_choose: False
+  random_shift: False
+  random_move: False
+  random_rot: False
+  window_size: 64
+  normalization: False
+  p_interval: [1]
+  vel: False
+  bone: False
+
+test_feeder_args:
+  data_path: data/ntu49/ntu49_xsub.npz
+  split: test
+  debug: False
+  random_choose: False
+  random_shift: False
+  random_move: False
+  random_rot: False
+  window_size: 64
+  normalization: False
+  p_interval: [1]
+  vel: False
+  bone: False
+
+# Model
+model: model.Hyperformer.Model
+
+model_args:
+  num_class: 49
+  num_point: 18
+  num_person: 1
+  in_channels: 4
+  graph: graph.coco18.Graph
+
+  graph_args:
+    labeling_mode: spatial
+
+  joint_label:
+    [0, 0,
+     1, 1, 1, 1, 1, 1,
+     2, 2, 2, 2, 2, 2,
+     3, 3, 3, 3]
+
+# Optimizer
+optimizer: SGD
+momentum: 0.9
+nesterov: True
+weight_decay: 0.0004
+
+base_lr: 0.025
+lr_decay_rate: 0.1
+
+step: [110, 120]
+warm_up_epoch: 5
+
+# Full training
+device: [0]
+
+batch_size: 64
+test_batch_size: 64
+
+num_epoch: 140

@@ -1,0 +1,37 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Package metadata
+*.egg-info/
+
+# Training outputs
+work_dir/
+
+# Editor files
+.vscode/
+
+# Notebook cache
+.ipynb_checkpoints/# Python
+*.py[cod]
+.pytest_cache/
+# Virtual environments
+rtmpose/
+.venv/
+venv/
+# Extracted datasets
+NTU60_MP_OUTPUT/
+*.npy
+*.npz
+*.part
+# Training outputs and checkpoints
+Hyperformer/work_dir/
+runs/
+*.pt
+*.pth
+*.ckpt
+# Local secrets and models
+.env
+pose_landmarker_*.task

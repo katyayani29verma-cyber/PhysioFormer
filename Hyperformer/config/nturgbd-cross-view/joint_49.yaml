@@ -1,0 +1,55 @@
+work_dir: ./work_dir/ntu60/xview/hyperformer_joint
+
+# feeder
+feeder: feeders.feeder_ntu.Feeder
+
+
+test_feeder_args:
+  data_path: ../physio_dataset.npz
+  split: train
+  debug: False
+  random_choose: False
+  random_shift: False
+  random_move: False
+  window_size: 64
+  normalization: False
+  random_rot: True
+  p_interval: [0.5, 1]
+  vel: False
+  bone: False
+
+train_feeder_args:
+  data_path: ../physio_dataset.npz
+  split: test
+  window_size: 64
+  p_interval: [0.95]
+  vel: False
+  bone: False
+  debug: False
+
+# model
+model: model.Hyperformer.Model
+model_args:
+  num_class: 49
+  num_point: 18
+  num_person: 1
+  graph: graph.coco18.Graph
+  graph_args:
+    labeling_mode: 'spatial'
+  joint_label: [0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3]
+
+#optim
+weight_decay: 0.0004
+base_lr: 0.01
+lr_decay_rate: 0.025
+#step: [35, 55]
+step: [110, 120]
+
+warm_up_epoch: 5
+
+# training
+device: [0]
+batch_size: 4
+test_batch_size: 1
+num_epoch: 5
+nesterov: True
